@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message Role {
+    enum RoleType {
+        CONTRACTOR = 0;
+        MANUFACTURER = 1;
+        SUPPLIER = 2;
+        INSTALLER = 3;
+    }
+
+    RoleType type = 1;
+    bytes value = 2;
+}

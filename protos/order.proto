@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "agent.proto";
+
+message Order {
+    message Owner {
+        // Public key of the agent who owns the order
+        string agent_id = 1;
+
+        // Approximately when the owner was updated, as a Unix UTC timestamp
+        uint64 timestamp = 2;
+    }
+
+
+    // The user-defined natural key which identifies the object in the
+    // real world (for example a serial number)
+    string order_id = 1;
+
+    string order_type = 2;
+
+    // Ordered oldest to newest by timestamp
+    repeated Owner owners = 3;
+
+    // Flag indicating whether the Order can be updated. If it is set
+    // to true, then the order has been finalized and no further
+    // changes can be made to it or its Properties.
+    bool final = 4;
+
+    sint64 quantity = 5;
+    string asset_id = 6;
+    string task_id = 7;
+    string description = 8;
+    string destination = 9;
+    sint64 actual_cost = 10;
+    sint64 cost_paid = 11;
+    message OrderDates {
+        uint64 order_completion_date = 1;
+        uint64 order_delivery_date = 2;
+        uint64 order_install_date = 3;
+    }
+
+    OrderDates order_dates = 12;
+
+    string order_status = 13;
+    string order_stage = 14;
+    bool voided = 15;
+    string payment_status = 16;
+    Agent order_by = 17;
+    Agent order_for = 18;
+
+}
+
+
+message OrderContainer {
+    repeated Order entries = 1;
+}
