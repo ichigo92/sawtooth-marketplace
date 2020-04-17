@@ -90,6 +90,14 @@ def create_asset(txn_key, batch_key, name, description, rules):
         txn_key=txn_key,
         batch_key=batch_key)
 
+def create_task(txn_key,
+                   batch_key,
+                   identifier,
+                   label,
+                   description,
+                   asset,
+                   quantity):
+    pass
 
 def create_holding(txn_key,
                    batch_key,
@@ -141,6 +149,15 @@ def create_holding(txn_key,
         txn_key=txn_key,
         batch_key=batch_key)
 
+def create_order(txn_key,
+                 batch_key,
+                 identifier,
+                 label,
+                 description,
+                 source,
+                 target,
+                 rules):
+    pass
 
 def create_offer(txn_key,
                  batch_key,

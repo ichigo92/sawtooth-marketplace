@@ -78,5 +78,5 @@ def fix_import(contents, pkg, sub_dir=False):
 
 if __name__ == '__main__':
     make_protobuf('processor', 'plasma_processor/protobuf')
-    # make_protobuf('ledger_sync', 'plasma_ledger_sync/protobuf')
-    # make_protobuf('transaction_creation', 'plasma_transaction/protobuf')
+    make_protobuf('ledger_sync', 'plasma_ledger_sync/protobuf')
+    make_protobuf('transaction_creation', 'plasma_transaction/protobuf')

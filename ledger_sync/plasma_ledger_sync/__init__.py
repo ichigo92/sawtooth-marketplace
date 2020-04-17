@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Copyright 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,20 +11,4 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ------------------------------------------------------------------------------
-
-import os
-import sys
-
-sys.path.insert(0, os.path.join(
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-    'ledger_sync'))
-
-sys.path.insert(0, os.path.join(
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-    'addressing'))
-
-from plasma_ledger_sync.main import main
-
-if __name__ == '__main__':
-    main()
+# -----------------------------------------------------------------------------

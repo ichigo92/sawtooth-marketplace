@@ -55,6 +55,69 @@ services:
           -C tcp://validator:4004
       "
 
+  plasma-rest-api:
+    build:
+      context: .
+      dockerfile: ./rest_api/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: plasma-rest-api
+    container_name: plasma-rest-api
+    volumes:
+      - .:/project/sawtooth-plasma
+    ports:
+      - '8040:8000'
+    depends_on:
+      - plasma-shell
+      - plasma-ledger-sync
+      - rethink
+      - validator
+    command: |
+      bash -c "
+        sleep 3 &&
+        plasma-rest-api \
+          --host plasma-rest-api \
+          --db-host rethink \
+          --validator tcp://validator:4004
+      "
+
+  plasma-ledger-sync:
+    build:
+      context: .
+      dockerfile: ./ledger_sync/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: plasma-ledger-sync
+    container_name: plasma-ledger-sync
+    volumes:
+      - .:/project/sawtooth-plasma
+    depends_on:
+      - plasma-shell
+      - rethink
+      - validator
+    command: |
+      bash -c "
+        sleep 1 &&
+        plasma-setup-db --host rethink &&
+        plasma-ledger-sync -vv \
+          --db-host rethink \
+          --validator tcp://validator:4004
+      "
+
+  rethink:
+    image: rethinkdb:2.3
+    container_name: rethink-db
+    expose:
+      - 8080
+      - 28015
+    ports:
+      - '8042:8080'
+      - '28042:28015'
+
   sawtooth-rest-api:
     image: hyperledger/sawtooth-rest-api:1.0
     container_name: sawtooth-rest-api
