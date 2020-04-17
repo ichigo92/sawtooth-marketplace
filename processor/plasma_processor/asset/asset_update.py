@@ -1,4 +1,4 @@
-from palsma_processor import common
+from plasma_processor import common
 from sawtooth_sdk.processor.exceptions import InvalidTransaction
 
 
