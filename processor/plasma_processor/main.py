@@ -22,7 +22,7 @@ from sawtooth_sdk.processor.log import log_configuration
 from sawtooth_sdk.processor.config import get_log_config
 from sawtooth_sdk.processor.config import get_log_dir
 
-from plasma_supply_tp.handler import PlasmaSupplyHandler
+from plasma_processor.handler import PlasmaSupplyHandler
 
 
 def parse_args(args):

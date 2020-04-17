@@ -5,6 +5,7 @@
 .idea/
 
 **/__pycache__/**
+**/env/**
 
 # Node
 **/node_modules

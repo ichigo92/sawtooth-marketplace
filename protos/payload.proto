@@ -97,7 +97,7 @@ message CreateOrder {
 }
 
 message CreateTask {
-    Owner owner = 1;
+    Asset.Owner owner = 1;
 
     // The user-defined natural key which identifies the object in the
     // real world (for example a serial number)
