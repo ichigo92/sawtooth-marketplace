@@ -22,7 +22,7 @@ from db.common import fetch_orders
 from db.common import fetch_latest_block_num
 
 
-async def fetch_all_account_resources(conn):
+async def fetch_all_agent_resources(conn):
     return await r.table('agents')\
         .filter((fetch_latest_block_num() >= r.row['start_block_num'])
                 & (fetch_latest_block_num() < r.row['end_block_num']))\
