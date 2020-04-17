@@ -40,6 +40,8 @@ from api.errors import ERRORS_BP
 # from api.tasks import TASKS_BP
 from api.orders import ORDERS_BP
 
+from sanic_openapi import swagger_blueprint
+
 
 LOGGER = logging.getLogger(__name__)
 DEFAULT_CONFIG = {
@@ -175,6 +177,7 @@ def main():
     app.blueprint(ERRORS_BP)
     # app.blueprint(TASKS_BP)
     app.blueprint(ORDERS_BP)
+    app.blueprint(swagger_blueprint)
 
     load_config(app)
     zmq = ZMQEventLoop()
