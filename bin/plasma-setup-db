@@ -43,9 +43,9 @@ def setup_db(host, port, name):
         print('Creating database:', name)
         r.db_create(name).run(conn)
 
-        print('Creating table: accounts')
-        r.db(name).table_create('accounts', primary_key='delta_id').run(conn)
-        r.db(name).table('accounts').index_create('public_key').run(conn)
+        print('Creating table: agents')
+        r.db(name).table_create('agents', primary_key='delta_id').run(conn)
+        r.db(name).table('agents').index_create('public_key').run(conn)
 
         print('Creating table: assets')
         r.db(name).table_create('assets', primary_key='delta_id').run(conn)

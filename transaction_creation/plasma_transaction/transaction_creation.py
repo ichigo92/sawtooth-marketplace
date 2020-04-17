@@ -13,7 +13,7 @@
 # limitations under the License.
 # -----------------------------------------------------------------------------
 
-from marketplace_addressing import addresser
+from plasma_addressing import addresser
 
 from plasma_transaction.common import make_header_and_batch
 from plasma_transaction.protobuf import payload_pb2

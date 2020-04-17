@@ -46,7 +46,7 @@ def parse_args(args):
                         default='28015')
     parser.add_argument('--db-name',
                         help='The name of the database to use',
-                        default='marketplace')
+                        default='plasma')
     return parser.parse_args(args)
 
 

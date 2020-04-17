@@ -63,7 +63,7 @@ def main(args=None):
             # use the transaction processor zmq identity for filename
             log_configuration(
                 log_dir=log_dir,
-                name="marketplace-" + str(processor.zmq_id)[2:-1])
+                name="plasma-" + str(processor.zmq_id)[2:-1])
 
         init_console_logging(verbose_level=opts.verbose)
 
