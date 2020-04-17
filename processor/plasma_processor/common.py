@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from sawtooth_sdk.processor.exceptions import InvalidTransaction
 
 
@@ -51,4 +54,5 @@ def _validate_timestamp(timestamp):
     if (timestamp - current_time) > SYNC_TOLERANCE:
         raise InvalidTransaction(
             'Timestamp must be less than local time.'
-            ' Expected {0} in ({1}-{2}, {1}+{2})'.
+            ' Expected {0} in ({1}-{2}, {1}+{2})'.format(
+                timestamp, current_time, SYNC_TOLERANCE))
