@@ -46,6 +46,7 @@ RUN pip3 install \
     pycrypto \
     rethinkdb==2.3.0 \
     sanic==0.8 \
+    sanic-openapi \
     itsdangerous
 
 WORKDIR /project/sawtooth-plasma
