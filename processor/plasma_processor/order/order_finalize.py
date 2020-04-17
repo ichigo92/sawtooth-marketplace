@@ -2,7 +2,7 @@ from plasma_processor import common
 from sawtooth_sdk.processor.exceptions import InvalidTransaction
 
 
-def handle_accept_order(transfer_order, header, state):
+def handle_finalize_order(transfer_order, header, state):
     """Handles updating an Order.
 
     Args:
