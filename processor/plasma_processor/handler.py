@@ -21,20 +21,20 @@ from sawtooth_sdk.processor.exceptions import InvalidTransaction
 
 from plasma_addressing import addresser
 
-from palsma_processor.agent import agent_creation
+from plasma_processor.agent import agent_creation
 
-from palsma_processor.asset import asset_creation
-from palsma_processor.asset import asset_transfer
-from palsma_processor.asset import asset_update
+from plasma_processor.asset import asset_creation
+from plasma_processor.asset import asset_transfer
+from plasma_processor.asset import asset_update
 
-from palsma_processor.order import order_creation
-from palsma_processor.order import order_update
-from palsma_processor.order import order_transfer
-from palsma_processor.order import order_accept
-from palsma_processor.order import order_finalize
+from plasma_processor.order import order_creation
+from plasma_processor.order import order_update
+from plasma_processor.order import order_transfer
+from plasma_processor.order import order_accept
+from plasma_processor.order import order_finalize
 
-from palsma_processor.task import task_creation
-from palsma_processor.task import task_update
+from plasma_processor.task import task_creation
+from plasma_processor.task import task_update
 
 from plasma_processor.payload import PlasmaPayload
 from plasma_processor.state import PlasmaState
