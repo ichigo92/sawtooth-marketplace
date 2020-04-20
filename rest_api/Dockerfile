@@ -31,7 +31,7 @@ RUN pip3 install \
     bcrypt \
     itsdangerous \
     rethinkdb==2.3.0 \
-    sanic==0.8 \
+    sanic \
     pycrypto
 
 WORKDIR /project/sawtooth-plasma
