@@ -56,7 +56,11 @@ DEFAULT_CONFIG = {
     'KEEP_ALIVE': False,
     'SECRET_KEY': None,
     'AES_KEY': None,
-    'BATCHER_PRIVATE_KEY': None
+    'BATCHER_PRIVATE_KEY': None,
+    'API_VERSION': '0.0.1',
+    'API_TITLE': 'Plasma RESTful API',
+    'API_TERMS_OF_SERVICE': 'Use with caution!',
+    'API_CONTACT_EMAIL': 'abdul.fatir@assentian.com'
 }
 
 

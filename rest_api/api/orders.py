@@ -18,6 +18,7 @@ from uuid import uuid4
 
 from sanic import response
 from sanic import Blueprint
+from sanic_openapi import doc
 
 from api.authorization import authorized
 from api import common
@@ -34,6 +35,7 @@ ORDERS_BP = Blueprint('orders')
 
 
 @ORDERS_BP.post('orders')
+@doc.description('Creates a new Order in state')
 @authorized()
 async def create_order(request):
     """Creates a new order in state"""
@@ -74,6 +76,7 @@ async def create_order(request):
 
 
 @ORDERS_BP.get('orders')
+@doc.description('Fetches complete details of all Orders in state')
 async def get_all_orders(request):
     """Fetches complete details of all Offers in state"""
     keys = ['status', 'source', 'target']
@@ -86,6 +89,7 @@ async def get_all_orders(request):
 
 
 @ORDERS_BP.get('orders/<order_id>')
+@doc.description('Fetches the details of particular Order in state')
 async def get_order(request, offer_id):
     """Fetches the details of particular Offer in state"""
     offer_resource = await offers_query.fetch_offer_resource(
@@ -94,6 +98,7 @@ async def get_order(request, offer_id):
 
 
 @ORDERS_BP.patch('offers/<order_id>/accept')
+@doc.description('Request for authorized Agent to accept Order')
 @authorized()
 async def accept_order(request, offer_id):
     """Request for authorized Account to accept Offer"""
@@ -129,6 +134,7 @@ async def accept_order(request, offer_id):
 
 
 @ORDERS_BP.patch('offers/<order_id>/close')
+@doc.description('Request by owner of Order to close it')
 @authorized()
 async def close_order(request, offer_id):
     """Request by owner of Offer to close it"""

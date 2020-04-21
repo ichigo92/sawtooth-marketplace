@@ -21,18 +21,20 @@ from itsdangerous import BadSignature
 
 from sanic import Blueprint
 from sanic.response import json
+from sanic_openapi import doc
 
 from api import common
 from api.errors import ApiUnauthorized
 from db import auth_query
 
 
-AUTH_BP = Blueprint('auth')
+AUTH_BP = Blueprint('authorization')
 
 
 @AUTH_BP.post('authorization')
+@doc.description('Requests an authorization token for a registered Agent')
 async def authorize(request):
-    """Requests an authorization token for a registered Account"""
+    """Requests an authorization token for a registered Agent"""
     required_fields = ['email', 'password']
     common.validate_fields(required_fields, request.json)
     password = bytes(request.json.get('password'), 'utf-8')
