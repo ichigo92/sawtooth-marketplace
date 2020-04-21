@@ -44,6 +44,9 @@ class Database(object):
     def fetch(self, table_name, primary_id):
         """Fetches a single resource by its primary id
         """
+        if primary_id is None:
+            return None
+
         return r.db(self._name).table(table_name)\
             .get(primary_id).run(self._conn)
 
