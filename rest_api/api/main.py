@@ -110,7 +110,7 @@ def parse_args(args):
 
 def load_swagger(app):
     config_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+        os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
         'api-spec.yaml')
     
     api_doc(app, config_path=config_path,
