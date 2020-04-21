@@ -20,7 +20,7 @@ import os
 from signal import signal, SIGINT
 import sys
 
-import rethinkdb as r
+from rethinkdb import RethinkDB
 
 from sanic import Sanic
 
@@ -42,6 +42,7 @@ from api.errors import ERRORS_BP
 # from api.tasks import TASKS_BP
 from api.orders import ORDERS_BP
 
+r = RethinkDB()
 
 LOGGER = logging.getLogger(__name__)
 DEFAULT_CONFIG = {

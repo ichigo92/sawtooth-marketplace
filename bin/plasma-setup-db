@@ -18,8 +18,10 @@
 import sys
 import argparse
 
-import rethinkdb as r
+from rethinkdb import RethinkDB
 from rethinkdb.errors import RqlRuntimeError
+
+r = RethinkDB()
 
 
 def parse_args(args):

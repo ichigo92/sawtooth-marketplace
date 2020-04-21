@@ -13,10 +13,12 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-import rethinkdb as r
+from rethinkdb import RethinkDB
 from rethinkdb import ReqlNonExistenceError
 
 from api.errors import ApiInternalError
+
+r = RethinkDB()
 
 
 VAL_TYPE_INT = r.expr([

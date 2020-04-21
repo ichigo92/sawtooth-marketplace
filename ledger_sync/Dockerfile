@@ -26,7 +26,7 @@ RUN apt-get install -y --allow-unauthenticated -q python3-grpcio-tools \
         python3-pip \
         python3-sawtooth-sdk
 
-RUN pip3 install rethinkdb==2.3.0
+RUN pip3 install rethinkdb
 
 WORKDIR /project/sawtooth-plasma
 

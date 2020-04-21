@@ -14,7 +14,9 @@
 # -----------------------------------------------------------------------------
 
 import logging
-import rethinkdb as r
+from rethinkdb import RethinkDB
+
+r = RethinkDB()
 
 
 LOGGER = logging.getLogger(__name__)

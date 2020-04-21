@@ -13,13 +13,15 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-import rethinkdb as r
+from rethinkdb import RethinkDB
 from rethinkdb.errors import ReqlNonExistenceError
 
 from api.errors import ApiBadRequest
 
 from db.common import fetch_holdings
 from db.common import fetch_latest_block_num
+
+r = RethinkDB()
 
 
 async def fetch_all_account_resources(conn):

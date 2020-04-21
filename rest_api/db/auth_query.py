@@ -15,12 +15,15 @@
 
 import logging
 
-import rethinkdb as r
+from rethinkdb import RethinkDB
 
 from api.errors import ApiBadRequest
 
+r = RethinkDB()
+
 
 LOGGER = logging.getLogger(__name__)
+
 
 
 async def create_auth_entry(conn, auth_entry):

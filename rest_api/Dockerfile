@@ -30,7 +30,7 @@ RUN apt-get install -y --allow-unauthenticated -q python3-grpcio-tools \
 RUN pip3 install \
     bcrypt \
     itsdangerous \
-    rethinkdb==2.3.0 \
+    rethinkdb \
     sanic \
     swagger-ui-py \
     pycrypto

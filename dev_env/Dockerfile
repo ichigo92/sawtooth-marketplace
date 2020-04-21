@@ -44,7 +44,7 @@ RUN pip3 install \
     nose2 \
     bcrypt \
     pycrypto \
-    rethinkdb==2.3.0 \
+    rethinkdb \
     sanic \
     swagger-ui-py \
     itsdangerous
