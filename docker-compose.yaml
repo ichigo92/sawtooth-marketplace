@@ -119,7 +119,7 @@ services:
       - '28042:28015'
 
   sawtooth-rest-api:
-    image: hyperledger/sawtooth-rest-api:1.0
+    image: hyperledger/sawtooth-rest-api:1.2
     container_name: sawtooth-rest-api
     expose:
       - 8008
@@ -133,7 +133,7 @@ services:
         --bind sawtooth-rest-api:8008
 
   sawtooth-shell:
-    image: hyperledger/sawtooth-shell:1.0
+    image: hyperledger/sawtooth-shell:1.2
     container_name: sawtooth-shell
     volumes:
       - '.:/project/sawtooth-plasma'
@@ -149,14 +149,14 @@ services:
         tail -f /dev/null
       "
   settings-tp:
-    image: hyperledger/sawtooth-settings-tp:1.0
+    image: hyperledger/sawtooth-settings-tp:1.2
     container_name: sawtooth-settings-tp
     depends_on:
       - validator
     command: settings-tp -vv --connect tcp://validator:4004
 
   validator:
-    image: hyperledger/sawtooth-validator:1.0
+    image: hyperledger/sawtooth-validator:1.2
     container_name: sawtooth-validator
     expose:
       - 4004
