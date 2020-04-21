@@ -109,7 +109,7 @@ services:
       "
 
   rethink:
-    image: rethinkdb:2.3
+    image: rethinkdb:2.4
     container_name: rethink-db
     expose:
       - 8080
