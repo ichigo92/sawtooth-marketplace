@@ -60,7 +60,15 @@ DEFAULT_CONFIG = {
     'API_VERSION': '0.0.1',
     'API_TITLE': 'Plasma RESTful API',
     'API_TERMS_OF_SERVICE': 'Use with caution!',
-    'API_CONTACT_EMAIL': 'abdul.fatir@assentian.com'
+    'API_CONTACT_EMAIL': 'abdul.fatir@assentian.com',
+    'API_SECURITY':[{'ApiKeyAuth': []}],
+    'API_SECURITY_DEFINITIONS': {
+        'ApiKeyAuth': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
+    },
+    'SWAGGER_UI_CONFIGURATION': {
+        'displayRequestDuration': True,
+        'docExpansion': 'full'
+    }
 }
 
 

@@ -36,6 +36,7 @@ ORDERS_BP = Blueprint('orders')
 
 @ORDERS_BP.post('orders')
 @doc.description('Creates a new Order in state')
+@doc.operation('createOrder')
 @authorized()
 async def create_order(request):
     """Creates a new order in state"""

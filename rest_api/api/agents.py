@@ -40,6 +40,7 @@ AGENTS_BP = Blueprint('agents')
 
 @AGENTS_BP.post('agents')
 @doc.description('Creates a new Agent and corresponding authorization token')
+@doc.operation('createAgent')
 async def create_agent(request):
     """Creates a new Agent and corresponding authorization token"""
     required_fields = ['email', 'password']
@@ -112,6 +113,7 @@ async def get_agent(request, key):
 
 @AGENTS_BP.patch('agents')
 @doc.description('Updates auth information for the authorized agent')
+@doc.operation('updateAgent')
 @authorized()
 async def update_agent_info(request):
     """Updates auth information for the authorized agent"""

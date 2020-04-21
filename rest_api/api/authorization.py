@@ -33,6 +33,8 @@ AUTH_BP = Blueprint('authorization')
 
 @AUTH_BP.post('authorization')
 @doc.description('Requests an authorization token for a registered Agent')
+@doc.consumes({'credentials': str}, location='body', required=True, , content_type="application/json")
+@doc.produces({'AuthToken': str}, description="Success response with authorization token", content_type="application/json")
 async def authorize(request):
     """Requests an authorization token for a registered Agent"""
     required_fields = ['email', 'password']
