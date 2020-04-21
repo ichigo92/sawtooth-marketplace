@@ -19,7 +19,6 @@ from itsdangerous import BadSignature
 
 from sanic import Blueprint
 from sanic import response
-from sanic_openapi import doc
 
 from sawtooth_signing import CryptoFactory
 
@@ -39,8 +38,6 @@ AGENTS_BP = Blueprint('agents')
 
 
 @AGENTS_BP.post('agents')
-@doc.description('Creates a new Agent and corresponding authorization token')
-@doc.operation('createAgent')
 async def create_agent(request):
     """Creates a new Agent and corresponding authorization token"""
     required_fields = ['email', 'password']
@@ -88,7 +85,6 @@ async def create_agent(request):
 
 
 @AGENTS_BP.get('agents')
-@doc.description('Fetches complete details of all Agents in state')
 async def get_all_agents(request):
     """Fetches complete details of all Agents in state"""
     agent_resources = await agents_query.fetch_all_agent_resources(
@@ -97,7 +93,6 @@ async def get_all_agents(request):
 
 
 @AGENTS_BP.get('agents/<key>')
-@doc.description('Fetches the details of particular Agent in state')
 async def get_agent(request, key):
     """Fetches the details of particular Agent in state"""
     try:
@@ -112,8 +107,6 @@ async def get_agent(request, key):
 
 
 @AGENTS_BP.patch('agents')
-@doc.description('Updates auth information for the authorized agent')
-@doc.operation('updateAgent')
 @authorized()
 async def update_agent_info(request):
     """Updates auth information for the authorized agent"""

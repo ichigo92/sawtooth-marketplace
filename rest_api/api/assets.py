@@ -17,7 +17,6 @@ from urllib.parse import unquote
 
 from sanic import Blueprint
 from sanic import response
-from sanic_openapi import doc
 
 from api.authorization import authorized
 from api import common
@@ -32,7 +31,6 @@ ASSETS_BP = Blueprint('assets')
 
 
 @ASSETS_BP.post('assets')
-@doc.description('Creates a new Asset in state')
 @authorized()
 async def create_asset(request):
     """Creates a new Asset in state"""
@@ -63,7 +61,6 @@ async def create_asset(request):
 
 
 @ASSETS_BP.get('assets')
-@doc.description('Fetches complete details of all Assets in state')
 async def get_all_assets(request):
     """Fetches complete details of all Assets in state"""
     asset_resources = await assets_query.fetch_all_asset_resources(
@@ -72,7 +69,6 @@ async def get_all_assets(request):
 
 
 @ASSETS_BP.get('assets/<asset_id>')
-@doc.description('Fetches the details of particular Asset in state')
 async def get_asset(request, asset_id):
     """Fetches the details of particular Asset in state"""
     decoded_id = unquote(asset_id)

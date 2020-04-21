@@ -24,6 +24,8 @@ import rethinkdb as r
 
 from sanic import Sanic
 
+from swagger_ui import api_doc
+
 from sawtooth_signing import create_context
 from sawtooth_signing import ParseError
 from sawtooth_signing.secp256k1 import Secp256k1PrivateKey
@@ -40,8 +42,6 @@ from api.errors import ERRORS_BP
 # from api.tasks import TASKS_BP
 from api.orders import ORDERS_BP
 
-from sanic_openapi import swagger_blueprint
-
 
 LOGGER = logging.getLogger(__name__)
 DEFAULT_CONFIG = {
@@ -57,18 +57,6 @@ DEFAULT_CONFIG = {
     'SECRET_KEY': None,
     'AES_KEY': None,
     'BATCHER_PRIVATE_KEY': None,
-    'API_VERSION': '0.0.1',
-    'API_TITLE': 'Plasma RESTful API',
-    'API_TERMS_OF_SERVICE': 'Use with caution!',
-    'API_CONTACT_EMAIL': 'abdul.fatir@assentian.com',
-    'API_SECURITY':[{'ApiKeyAuth': []}],
-    'API_SECURITY_DEFINITIONS': {
-        'ApiKeyAuth': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
-    },
-    'SWAGGER_UI_CONFIGURATION': {
-        'displayRequestDuration': True,
-        'docExpansion': 'full'
-    }
 }
 
 
@@ -119,6 +107,17 @@ def parse_args(args):
     parser.add_argument('--batcher-private-key',
                         help='The sawtooth key used for transaction signing')
     return parser.parse_args(args)
+
+def load_swagger(app):
+    config_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+        'api-spec.yaml')
+    
+    api_doc(app, config_path=config_path,
+            editor=False,
+            url_prefix='/swagger',
+            title='PLASMA API Doc')
+    
 
 
 def load_config(app):  # pylint: disable=too-many-branches
@@ -189,7 +188,8 @@ def main():
     app.blueprint(ERRORS_BP)
     # app.blueprint(TASKS_BP)
     app.blueprint(ORDERS_BP)
-    app.blueprint(swagger_blueprint)
+
+    load_swagger(app)
 
     load_config(app)
     zmq = ZMQEventLoop()

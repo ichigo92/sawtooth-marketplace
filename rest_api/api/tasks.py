@@ -17,7 +17,6 @@ from uuid import uuid4
 
 from sanic import Blueprint
 from sanic import response
-from sanic_openapi import doc
 
 from api import common
 from api import messaging
@@ -30,7 +29,6 @@ TASKS_BP = Blueprint('tasks')
 
 
 @TASKS_BP.post('tasks')
-@doc.description('Creates a new Task for the authorized Agent')
 @authorized()
 async def create_task(request):
     """Creates a new Holding for the authorized Account"""
