@@ -232,4 +232,3 @@ bin/dev-tools -l
 
 Hyperledger Sawtooth software is licensed under the
 [Apache License Version 2.0](LICENSE) software license.
->>>>>>> d86c01917e5016e9af50c55324915032308afb5f
