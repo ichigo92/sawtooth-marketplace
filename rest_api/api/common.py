@@ -24,7 +24,7 @@ from api.errors import ApiBadRequest
 
 from db import auth_query
 
-# from plasma_transaction.protobuf import rule_pb2
+from marketplace_transaction.protobuf import rule_pb2
 
 
 def validate_fields(required_fields, request_json):
@@ -72,22 +72,22 @@ def deserialize_auth_token(secret_key, token):
     return serializer.loads(token)
 
 
-# def proto_wrap_rules(rules):
-#     rule_protos = []
-#     if rules is not None:
-#         for rule in rules:
-#             try:
-#                 rule_proto = rule_pb2.Rule(type=rule['type'])
-#             except IndexError:
-#                 raise ApiBadRequest("Improper rule format")
-#             except ValueError:
-#                 raise ApiBadRequest("Invalid rule type")
-#             except KeyError:
-#                 raise ApiBadRequest("Rule type is required")
-#             if rule.get('value') is not None:
-#                 rule_proto.value = value_to_csv(rule['value'])
-#             rule_protos.append(rule_proto)
-#     return rule_protos
+def proto_wrap_rules(rules):
+    rule_protos = []
+    if rules is not None:
+        for rule in rules:
+            try:
+                rule_proto = rule_pb2.Rule(type=rule['type'])
+            except IndexError:
+                raise ApiBadRequest("Improper rule format")
+            except ValueError:
+                raise ApiBadRequest("Invalid rule type")
+            except KeyError:
+                raise ApiBadRequest("Rule type is required")
+            if rule.get('value') is not None:
+                rule_proto.value = value_to_csv(rule['value'])
+            rule_protos.append(rule_proto)
+    return rule_protos
 
 
 def value_to_csv(value):

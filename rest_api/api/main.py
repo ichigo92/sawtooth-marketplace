@@ -35,14 +35,15 @@ from sawtooth_rest_api.messaging import Connection
 
 from zmq.asyncio import ZMQEventLoop
 
-from api.agents import AGENTS_BP
-# from api.assets import ASSETS_BP
+from api.accounts import ACCOUNTS_BP
+from api.assets import ASSETS_BP
 from api.authorization import AUTH_BP
 from api.errors import ERRORS_BP
-# from api.tasks import TASKS_BP
-from api.orders import ORDERS_BP
+from api.holdings import HOLDINGS_BP
+from api.offers import OFFERS_BP
 
 r = RethinkDB()
+
 
 LOGGER = logging.getLogger(__name__)
 DEFAULT_CONFIG = {
@@ -52,12 +53,12 @@ DEFAULT_CONFIG = {
     'VALIDATOR_URL': 'tcp://localhost:4004',
     'DB_HOST': 'localhost',
     'DB_PORT': 28015,
-    'DB_NAME': 'plasma',
+    'DB_NAME': 'marketplace',
     'DEBUG': True,
     'KEEP_ALIVE': False,
     'SECRET_KEY': None,
     'AES_KEY': None,
-    'BATCHER_PRIVATE_KEY': None,
+    'BATCHER_PRIVATE_KEY': None
 }
 
 
@@ -109,6 +110,7 @@ def parse_args(args):
                         help='The sawtooth key used for transaction signing')
     return parser.parse_args(args)
 
+
 def load_swagger(app):
     config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
@@ -117,8 +119,7 @@ def load_swagger(app):
     api_doc(app, config_path=config_path,
             editor=False,
             url_prefix='/swagger',
-            title='PLASMA API Doc')
-    
+            title='Marketplace API Doc')
 
 
 def load_config(app):  # pylint: disable=too-many-branches
@@ -183,15 +184,14 @@ def load_config(app):  # pylint: disable=too-many-branches
 
 def main():
     app = Sanic(__name__)
-    app.blueprint(AGENTS_BP)
-    # app.blueprint(ASSETS_BP)
+    app.blueprint(ACCOUNTS_BP)
+    app.blueprint(ASSETS_BP)
     app.blueprint(AUTH_BP)
     app.blueprint(ERRORS_BP)
-    # app.blueprint(TASKS_BP)
-    app.blueprint(ORDERS_BP)
+    app.blueprint(HOLDINGS_BP)
+    app.blueprint(OFFERS_BP)
 
     load_swagger(app)
-
     load_config(app)
     zmq = ZMQEventLoop()
     asyncio.set_event_loop(zmq)

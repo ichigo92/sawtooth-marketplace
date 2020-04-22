@@ -23,7 +23,6 @@ from db.common import fetch_latest_block_num
 
 r = RethinkDB()
 
-
 async def fetch_all_account_resources(conn):
     return await r.table('accounts')\
         .filter((fetch_latest_block_num() >= r.row['start_block_num'])

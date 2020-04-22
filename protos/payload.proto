@@ -1,170 +1,81 @@
+// Copyright 2017 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// ----------------------------------------------------------------------------
+
 syntax = "proto3";
 
-import "order.proto";
-import "agent.proto";
-import "asset.proto";
-import "role.proto";
+import "rule.proto";
 
+message TransactionPayload {
 
-message PlasmaSupplyPayload{
     enum PayloadType {
-        CREATE_AGENT = 0;
-        CREATE_ASSET = 1;
-        CREATE_ORDER = 2;
-        CREATE_TASK = 3;
-        UPDATE_ASSET = 4;
-        TRANSFER_ASSET = 5;
-        UPDATE_ORDER = 6;
-        TRANSFER_ORDER = 7;
-        UPDATE_TASK = 8;
-        ACCEPT_ORDER = 9;
-        FINALIZE_ORDER = 10;
+        TYPE_UNSET = 0;
+        CREATE_ACCOUNT = 2;
+        CREATE_ASSET = 3;
+        CREATE_HOLDING = 4;
+        CREATE_OFFER = 5;
+        ACCEPT_OFFER = 10;
+        CLOSE_OFFER = 11;
     }
 
-    // Whether the payload contains a create agent, create record,
-    // update record, or transfer record action
     PayloadType payload_type = 1;
 
-    // The transaction handler will read from just one of these fields
-    // according to the action
-    CreateAgent create_agent = 2;
+    CreateAccount create_account = 2;
     CreateAsset create_asset = 3;
-    CreateOrder create_order = 4;
-    CreateTask create_task = 5;
-    UpdateAsset update_asset = 6;
-    TransferAsset transfer_asset = 7;
-    UpdateOrder update_order = 8;
-    TransferOrder transfer_order = 9;
-    UpdateTask update_task = 10;
-    AcceptOrder accept_order = 11;
-    FinalizeOrder finalize_order = 12;
-    
-
-    // Approximately when transaction was submitted, as a Unix UTC timestamp
-    uint64 timestamp = 13;
+    CreateHolding create_holding = 4;
+    CreateOffer create_offer = 5;
+    AcceptOffer accept_offer = 10;
+    CloseOffer close_offer = 11;
 }
 
-
-message CreateAgent {
-    // A human-readable name identifying the new agent
-    string name = 1;
-    uint64 description = 2;
-    Role role = 3;
-    uint64 timestamp = 4;
+message CreateAccount {
+    string label = 1;
+    string description = 2;
 }
 
 message CreateAsset {
-    
-    string asset_id = 1;
-    string asset_type = 2;
-    string name = 3;
-    string description = 4;
-    Asset.Owner owner = 5;
-    Asset.Location location = 6;
-    string barcode = 7;
-    Asset.PlannedDates planned_dates = 8;
-    uint64 timestamp = 9;
-    Asset.Manufacturer manufacturer = 10;
-    Asset.Orderer orderer = 11;
+    string name = 1;
+    string description = 2;
+    repeated Rule rules = 3;
 }
 
-
-message CreateOrder {
-    // The user-defined natural key which identifies the object in the
-    // real world (for example a serial number)
-    string order_id = 1;
-
-    // Coordinates are expected to be in millionths of a degree
-    string order_type = 2;
-    bool final = 3;
-
-    sint64 quantity = 4;
-    string asset_id = 5;
-    string task_id = 6;
-    string description = 7;
-    string destination = 8;
-    sint64 actual_cost = 9;
-
-    Order.OrderDates order_dates = 11;
-
-    string order_status = 12;
-    string order_stage = 13;
-    bool voided = 14;
-    string payment_status = 15;
-    Agent order_by = 16;
-    Agent order_for = 17;
-
+message CreateHolding {
+    string id = 1;
+    string label = 2;
+    string description = 3;
+    string asset = 4;
+    sint64 quantity = 5;
 }
 
-message CreateTask {
-    Asset.Owner owner = 1;
-
-    // The user-defined natural key which identifies the object in the
-    // real world (for example a serial number)
-    string task_id = 2;
-
-    string name = 3;
-
-    string description = 4;
-
-    string location = 5;
-
-    string order_id = 6;
-
-    uint64 timestamp = 7;
+message CreateOffer {
+    string id = 1;
+    string label = 2;
+    string description = 3;
+    string source = 4;
+    sint64 source_quantity = 5;
+    string target = 6;
+    sint64 target_quantity = 7;
+    repeated Rule rules = 8;
 }
 
-message UpdateAsset {
-    // The id of the record being updated
-    string asset_id = 1;
-
-    // Coordinates are expected to be in millionths of a degree
-    sint64 latitude = 2;
-    sint64 longitude = 3;
-}
-
-message TransferAsset {
-    // The id of the record for the ownership transfer
-    string asset_id = 1;
-
-    // The public key of the agent to which the record will be transferred
-    string receiving_agent = 2;
-}
-
-
-message UpdateOrder {
-    // The id of the record being updated
-    string order_id = 1;
-
-    // Coordinates are expected to be in millionths of a degree
-    sint64 latitude = 2;
-    sint64 longitude = 3;
-    uint64 timestamp = 4;
-}
-
-
-message TransferOrder {
-    // The id of the record for the ownership transfer
-    string order_id = 1;
-
-    // The public key of the agent to which the record will be transferred
-    string receiving_agent = 2;
-    uint64 timestamp = 3;
-}
-
-message UpdateTask {
-    // The id of the record being updated
-    string task_id = 1;
-}
-
-message AcceptOrder {
+message AcceptOffer {
     string id = 1;
     string source = 2;
     string target = 3;
     uint64 count = 4;
 }
 
-message FinalizeOrder {
-  // The natural key of the Record
-  string order_id = 1;
+message CloseOffer {
+    string id = 1;
 }

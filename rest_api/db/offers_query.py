@@ -23,7 +23,6 @@ from db.common import parse_rules
 
 r = RethinkDB()
 
-
 async def fetch_all_offer_resources(conn, query_params):
     return await r.table('offers')\
         .filter((fetch_latest_block_num() >= r.row['start_block_num'])

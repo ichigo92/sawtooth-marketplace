@@ -35,17 +35,17 @@ def fetch_latest_block_num():
         raise ApiInternalError('No block data found in state')
 
 
-def fetch_orders(order_ids):
-    return r.table('orders')\
-        .get_all(r.args(order_ids), index='id')\
-        .filter(lambda order: (
-            fetch_latest_block_num() >= order['start_block_num'])
-                & (fetch_latest_block_num() < order['end_block_num']))\
-        .map(lambda order: (order['order_type'] == "").branch(
-            order.without('order_type'), order))\
-        .map(lambda order: (order['description'] == "").branch(
-            order.without('description'), order))\
-        .without('start_block_num', 'end_block_num', 'delta_id', 'agent')\
+def fetch_holdings(holding_ids):
+    return r.table('holdings')\
+        .get_all(r.args(holding_ids), index='id')\
+        .filter(lambda holding: (
+            fetch_latest_block_num() >= holding['start_block_num'])
+                & (fetch_latest_block_num() < holding['end_block_num']))\
+        .map(lambda holding: (holding['label'] == "").branch(
+            holding.without('label'), holding))\
+        .map(lambda holding: (holding['description'] == "").branch(
+            holding.without('description'), holding))\
+        .without('start_block_num', 'end_block_num', 'delta_id', 'account')\
         .coerce_to('array')
 
 

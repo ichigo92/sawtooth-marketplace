@@ -28,8 +28,8 @@ RUN apt-get install -y --allow-unauthenticated -q python3-grpcio-tools \
 
 RUN pip3 install rethinkdb
 
-WORKDIR /project/sawtooth-plasma
+WORKDIR /project/sawtooth-marketplace
 
-ENV PATH $PATH:/project/sawtooth-plasma/bin
+ENV PATH $PATH:/project/sawtooth-marketplace/bin
 
-CMD ["plasma-ledger-sync"]
+CMD ["marketplace-ledger-sync"]

@@ -35,10 +35,10 @@ RUN pip3 install \
     swagger-ui-py \
     pycrypto
 
-WORKDIR /project/sawtooth-plasma
+WORKDIR /project/sawtooth-marketplace
 
-ENV PATH $PATH:/project/sawtooth-plasma/bin
+ENV PATH $PATH:/project/sawtooth-marketplace/bin
 
 EXPOSE 8000/tcp
 
-CMD ["plasma-rest-api"]
+CMD ["marketplace-rest-api"]

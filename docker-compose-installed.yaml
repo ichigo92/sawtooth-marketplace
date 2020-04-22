@@ -102,20 +102,20 @@ services:
       - market-rest-api
 
   rethink:
-    image: rethinkdb:2.3
+    image: rethinkdb:2.4
     container_name: rethink-installed
     expose:
       - 28015
 
   settings-tp:
-    image: hyperledger/sawtooth-settings-tp:1.0
+    image: hyperledger/sawtooth-settings-tp:1.2
     container_name: sawtooth-settings-tp-installed
     depends_on:
       - validator
     command: settings-tp -v -C tcp://validator:4004
 
   validator:
-    image: hyperledger/sawtooth-validator:1.0
+    image: hyperledger/sawtooth-validator:1.2
     container_name: sawtooth-validator-installed
     expose:
       - 4004

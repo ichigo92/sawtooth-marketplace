@@ -24,7 +24,7 @@ from api import messaging
 
 from db import assets_query
 
-from plasma_transaction import transaction_creation
+from marketplace_transaction import transaction_creation
 
 
 ASSETS_BP = Blueprint('assets')
@@ -43,9 +43,9 @@ async def create_asset(request):
     batches, batch_id = transaction_creation.create_asset(
         txn_key=signer,
         batch_key=request.app.config.SIGNER,
-        asset_id=asset.get('asset_id'),
         name=asset.get('name'),
-        description=asset.get('description'))
+        description=asset.get('description'),
+        rules=asset.get('rules'))
 
     await messaging.send(
         request.app.config.VAL_CONN,
@@ -54,8 +54,8 @@ async def create_asset(request):
 
     await messaging.check_batch_status(request.app.config.VAL_CONN, batch_id)
 
-    # if asset.get('rules'):
-    #     asset['rules'] = request.json['rules']
+    if asset.get('rules'):
+        asset['rules'] = request.json['rules']
 
     return response.json(asset)
 
@@ -68,22 +68,22 @@ async def get_all_assets(request):
     return response.json(asset_resources)
 
 
-@ASSETS_BP.get('assets/<asset_id>')
-async def get_asset(request, asset_id):
+@ASSETS_BP.get('assets/<name>')
+async def get_asset(request, name):
     """Fetches the details of particular Asset in state"""
-    decoded_id = unquote(asset_id)
+    decoded_name = unquote(name)
     asset_resource = await assets_query.fetch_asset_resource(
-        request.app.config.DB_CONN, decoded_id)
+        request.app.config.DB_CONN, decoded_name)
     return response.json(asset_resource)
 
 
 def _create_asset_dict(body, public_key):
-    keys = ['asset_id', 'description']
+    keys = ['name', 'description']
 
     asset = {k: body[k] for k in keys if body.get(k) is not None}
     asset['owners'] = [public_key]
 
-    # if body.get('rules'):
-    #     asset['rules'] = common.proto_wrap_rules(body['rules'])
+    if body.get('rules'):
+        asset['rules'] = common.proto_wrap_rules(body['rules'])
 
     return asset

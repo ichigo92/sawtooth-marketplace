@@ -31,29 +31,36 @@ class AddresserTest(unittest.TestCase):
                          addresser.AddressSpace.ASSET,
                          "The address is correctly identified as an Asset.")
 
-    def test_order_address(self):
-        order_address = addresser.make_order_address(uuid4().hex)
+    def test_offer_address(self):
+        offer_address = addresser.make_offer_address(uuid4().hex)
 
-        self.assertEqual(len(order_address), 70, "The address is valid.")
+        self.assertEqual(len(offer_address), 70, "The address is valid.")
 
-        self.assertEqual(addresser.address_is(order_address),
-                         addresser.AddressSpace.ORDER,
-                         "The address is correctly identified as an Order.")
+        self.assertEqual(addresser.address_is(offer_address),
+                         addresser.AddressSpace.OFFER,
+                         "The address is correctly identified as an Offer.")
 
-    def test_agent_address(self):
-        agent_address = addresser.make_agent_address(uuid4().hex)
+    def test_account_address(self):
+        account_address = addresser.make_account_address(uuid4().hex)
 
-        self.assertEqual(len(agent_address), 70, "The address is valid.")
+        self.assertEqual(len(account_address), 70, "The address is valid.")
 
-        self.assertEqual(addresser.address_is(agent_address),
-                         addresser.AddressSpace.AGENT,
-                         "The address is correctly identified as an Agent.")
+        self.assertEqual(addresser.address_is(account_address),
+                         addresser.AddressSpace.ACCOUNT,
+                         "The address is correctly identified as an Account.")
 
-    def test_task_address(self):
-        task_address = addresser.make_task_address(uuid4().hex)
+    def test_holding_address(self):
+        holding_address = addresser.make_holding_address(uuid4().hex)
 
-        self.assertEqual(len(task_address), 70, "The address is valid.")
+        self.assertEqual(len(holding_address), 70, "The address is valid.")
 
-        self.assertEqual(addresser.address_is(task_address),
-                         addresser.AddressSpace.TASK,
-                         "The address is correctly identified as a Task.")
+        self.assertEqual(addresser.address_is(holding_address),
+                         addresser.AddressSpace.HOLDING,
+                         "The address is correctly identified as an Holding.")
+
+    def test_offer_history_address(self):
+        offer_history_address = addresser.make_offer_account_address(
+            uuid4().hex,
+            uuid4().hex)
+
+        self.assertEqual(len(offer_history_address), 70, "The address is valid")

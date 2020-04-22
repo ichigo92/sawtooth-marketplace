@@ -19,7 +19,7 @@ from rethinkdb.errors import ReqlNonExistenceError
 from api.errors import ApiBadRequest
 
 from db.common import fetch_latest_block_num
-# from db.common import parse_rules
+from db.common import parse_rules
 
 r = RethinkDB()
 
@@ -30,17 +30,21 @@ async def fetch_all_asset_resources(conn):
                 & (fetch_latest_block_num() < r.row['end_block_num']))\
         .map(lambda asset: (asset['description'] == "").branch(
             asset.without('description'), asset))\
+        .map(lambda asset: (asset['rules'] == []).branch(
+            asset, asset.merge(parse_rules(asset['rules']))))\
         .without('start_block_num', 'end_block_num', 'delta_id')\
         .coerce_to('array').run(conn)
 
 
-async def fetch_asset_resource(conn, asset_id):
+async def fetch_asset_resource(conn, name):
     try:
         return await r.table('assets')\
-            .get_all(asset_id, index='asset_id')\
+            .get_all(name, index='name')\
             .max('start_block_num')\
             .do(lambda asset: (asset['description'] == "").branch(
                 asset.without('description'), asset))\
+            .do(lambda asset: (asset['rules'] == []).branch(
+                asset, asset.merge(parse_rules(asset['rules']))))\
             .without('start_block_num', 'end_block_num', 'delta_id')\
             .run(conn)
     except ReqlNonExistenceError:

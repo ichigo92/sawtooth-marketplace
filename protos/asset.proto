@@ -1,95 +1,28 @@
+// Copyright 2017 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// ----------------------------------------------------------------------------
+
 syntax = "proto3";
 
+import "rule.proto";
 
 message Asset {
-    message Owner {
-        // Public key of the agent who owns the record
-        string agent_id = 1;
-
-        // Approximately when the owner was updated, as a Unix UTC timestamp
-        uint64 timestamp = 2;
-    }
-
-    message Location {
-        // Coordinates are expected to be in millionths of a degree
-        sint64 latitude = 1;
-        sint64 longitude = 2;
-
-        string name = 3;
-
-        // Approximately when the location was updated, as a Unix UTC timestamp
-        uint64 timestamp = 4;
-    }
-
-    // The user-defined natural key which identifies the object in the
-    // real world (for example a serial number)
-    string asset_id = 1;
-
-    string asset_type = 2;
-
-    string name = 3;
-
-    // Ordered oldest to newest by timestamp
-    repeated Owner owners = 4;
-    repeated Location locations = 5;
-
-    string barcode = 6;
-    string description = 7;
-    
-    enum State {
-        DAMAGED = 0;
-        UNDAMAGED = 1;
-        UNKNOWN = 2;
-    }
-
-    enum Stage {
-        PRODUCTION_STARTED = 0;
-        READY_FOR_DISPATCH = 1;
-        DISPATCH_FROM_FACTORY = 2;
-        RECEIVED_ON_SITE = 3;
-        INSTALLED = 4;
-    }
-    
-    State pre_state = 8;
-    State post_state = 9;
-    Stage stage = 10;
-    message PlannedDates {
-        uint64 planned_completion_date = 1;
-        uint64 planned_delivery_date = 2;
-        uint64 planned_installed_date = 3;
-    }
-
-    message ActualDates {
-        uint64 actual_completion_date = 1;
-        uint64 actual_delivery_date = 2;
-        uint64 actual_installed_date = 3;
-    }
-    PlannedDates planned_dates = 11;
-    ActualDates actual_dates = 12;
-    
-    repeated Asset assets = 13;
-    message Manufacturer {
-        // Public key of the agent who owns the record
-        string agent_id = 1;
-
-        // Approximately when the owner was updated, as a Unix UTC timestamp
-        uint64 timestamp = 2;
-    }
-
-    message Orderer {
-        // Public key of the agent who owns the record
-        string agent_id = 1;
-
-        // Approximately when the owner was updated, as a Unix UTC timestamp
-        uint64 timestamp = 2;
-    }
-
-    Manufacturer manufacturer = 14;
-    Orderer orderer = 15;
-
-
+    string name = 1;
+    string description = 2;
+    repeated string owners = 3;
+    repeated Rule rules = 4;
 }
-
 
 message AssetContainer {
     repeated Asset entries = 1;

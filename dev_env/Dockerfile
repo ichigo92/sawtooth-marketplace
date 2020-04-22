@@ -49,10 +49,10 @@ RUN pip3 install \
     swagger-ui-py \
     itsdangerous
 
-WORKDIR /project/sawtooth-plasma
+WORKDIR /project/sawtooth-marketplace
 
-# COPY sawbuck_app/package.json /project/sawtooth-plasma/sawbuck_app/
+COPY sawbuck_app/package.json /project/sawtooth-marketplace/sawbuck_app/
 
-# RUN cd sawbuck_app/ && npm install
+RUN cd sawbuck_app/ && npm install
 
-ENV PATH $PATH:/project/sawtooth-plasma/bin
+ENV PATH $PATH:/project/sawtooth-marketplace/bin
