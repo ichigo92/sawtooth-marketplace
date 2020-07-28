@@ -40,7 +40,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN pip3 install \
     pylint \
     pycodestyle \
-    grpcio-tools \
+    grpcio-tools==1.29.0 \
     nose2 \
     bcrypt \
     pycrypto \
